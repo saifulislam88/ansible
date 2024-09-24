@@ -29,12 +29,12 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 
 ### Step:1: Update hostfile `/etc/hosts`(Only control node)
 
- - Downlaod the hostfile and hostname updating script 
+🔴 Downlaod the hostfile and hostname updating script 
 ```sh
 curl -O https://github.com/saifulislam88/ubuntu-essentials-package-installing-manager/blob/main/hostconfig.sh
 chmod +x hostconfig.sh
 ```
- - **Run** the `./hostconfig.sh` script or **add manually** `vim /etc/hosts`
+🔴 **Run** the `./hostconfig.sh` script or **add manually** `vim /etc/hosts`
 
 ```sh
 192.168.3.10   ansible-controller.saiful.com       ansible-controller
@@ -43,14 +43,12 @@ chmod +x hostconfig.sh
 ```
 
 ### **Step:2:** **Ansible Tasks Operation User**
-- Create a user **'msi'** or who will execute to **perform Ansible tasks** on **both** the `control` and `managed` node and give the **`sudo permissions`**.
-
+🟡 Create a user **'msi'** or who will execute to **perform Ansible tasks** on **both** the `control` and `managed` node and give the **`sudo permissions`**.
 ```sh
 adduser --disabled-password --gecos "" msi && echo "msi:nopassword" | chpasswd && usermod -aG sudo msi
 ```
 
-- **Set up SSH keys** | Configure `password less authentication` for the created user`saiful` from **`control node`** to **`managed nodes`**. For that, generate an SSH key pair and copy it to the managed nodes using the following commands.
-
+🟡 **Set up SSH keys** | Configure `password less authentication` for the created user`saiful` from **`control node`** to **`managed nodes`**. For that, generate an SSH key pair and copy it to the managed nodes using the following commands.
 ```sh
 su msi
 ssh-keygen -t rsa -b 4096
@@ -67,7 +65,7 @@ ssh-copy-id msi@web2.saiful.com
 
 ### **Step:3:** To install **Ansible** on your server, run the following command on your **control node**:
 
-- **Ansible Installation**
+🟢 **Ansible Installation**
 ```sh
 sudo apt update -y
 sudo apt install software-properties-common
@@ -80,10 +78,9 @@ sudo ansible --version
 
 
 
-After installing Ansible, you can manage remote nodes using the default configuration provided in /etc/ansible, as well as create custom configurations in other locations such as a user's home directory.\
-By default, `Ansible` is configured to use the `/etc/ansible` directory for its configuration, `inventory`, and `playbook files`. When running `Ansible` as the **`root`** user, `Ansible` will look for the following default files:
+After installing Ansible, you can manage remote nodes using the default configuration provided in /etc/ansible, as well as create custom configurations in other locations such as a user's home directory. By default, `Ansible` is configured to use the `/etc/ansible` directory for its configuration, `inventory`, and `playbook files`. When running `Ansible` as the **`root`** user, `Ansible` will look for the following default files:
 
-1. Default Configuration in /etc/ansible
+🟢 Default Configuration in /etc/ansible
 
 
 - **Ansible Configuration File:** `/etc/ansible/ansible.cfg`
