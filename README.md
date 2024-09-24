@@ -14,7 +14,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 |-----------------|-------------------------------|----------------|--------------|
 | Control Node    | ansible-controller.saiful.com | 192.168.3.10   | Ubuntu 24.04 |
 | Managed Node1   | web1.saiful.com               | 192.168.3.11   | Ubuntu 24.04 |
-| Managed Node1   | web2.saiful.com               | 192.168.3.12   | Ubuntu 22.04 |
+| Managed Node2   | web2.saiful.com               | 192.168.3.12   | Ubuntu 22.04 |
 | Managed Node+n  | xyz                           | xyz            | xyz          |
 
 
