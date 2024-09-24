@@ -186,4 +186,4 @@ web1.saiful.com
         state: present
         key: "{{ lookup('file', '/path/to/john.pub') }}"
 ```
-ansible-playbook -i hosts adduser_keybased.yaml
+`ansible-playbook -i hosts adduser_keybased.yaml`
