@@ -51,7 +51,7 @@ ssh-copy-id msi@web1.saiful.com
 ssh-copy-id msi@web2.saiful.com 
 ```
 - Test the managed server access
-```sh
+``sh
 ssh msi@web1.saiful.com
 ```
 ```sh
