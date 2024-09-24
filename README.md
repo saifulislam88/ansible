@@ -18,7 +18,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 | Managed Node+n  | xyz                           | xyz            | xyz          |
 
 
-### Step:2: Update hostfile `/etc/hosts`(Only control node)
+### Step:1: Update hostfile `/etc/hosts`(Only control node)
 
  - Downlaod the hostfile and hostname updating script 
 ```sh
@@ -51,7 +51,7 @@ ssh-copy-id msi@web1.saiful.com
 ssh-copy-id msi@web2.saiful.com 
 ```
 - Test the managed server access
-``sh
+```sh
 ssh msi@web1.saiful.com
 ```
 ```sh
