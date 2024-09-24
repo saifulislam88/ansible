@@ -1,8 +1,8 @@
 
 Ansible is a free and open-source automation tool used to configuration management, application deployment and task automation. Ansible has a simple yet powerful architecture primarily consisting of **two types of nodes**:
 
-**Control Node:** This is the machine where Ansible is installed, and from which commands, modules, and playbooks are executed. 
-**Managed Nodes:** These are the target systems (servers, VMs, etc.) on which Ansible performs tasks. They do not require Ansible to be installed; they are managed through SSH (Linux) or WinRM (Windows).
+- **Control Node:** This is the machine where Ansible is installed, and from which commands, modules, and playbooks are executed. 
+- **Managed Nodes:** These are the target systems (servers, VMs, etc.) on which Ansible performs tasks. They do not require Ansible to be installed; they are managed through SSH (Linux) or WinRM (Windows).
 
 Ansible operates in an **agentless fashion**, which means it does not need agents to be running on managed nodes. **It uses SSH for Linux and WinRM for Windows to communicate with managed nodes.**
 
