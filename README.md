@@ -65,7 +65,7 @@ ssh-copy-id msi@web2.saiful.com
 
 ### **Step:3:** To install **Ansible** on your server, run the following command on your **control node**:
 
-🟢 **Ansible Installation**
+#### 🟢**Ansible Installation**
 ```sh
 sudo apt update -y
 sudo apt install software-properties-common
@@ -80,7 +80,7 @@ sudo ansible --version
 
 After installing Ansible, you can manage remote nodes using the default configuration provided in /etc/ansible, as well as create custom configurations in other locations such as a user's home directory. By default, `Ansible` is configured to use the `/etc/ansible` directory for its configuration, `inventory`, and `playbook files`. When running `Ansible` as the **`root`** user, `Ansible` will look for the following default files:
 
-🟢 Default Configuration in /etc/ansible
+#### 🟢**Default Configuration in /etc/ansible**
 
 
 - **Ansible Configuration File:** `/etc/ansible/ansible.cfg`
@@ -111,7 +111,7 @@ become_ask_pass=False
 192.168.3.11
 
 [prod]
-web1.saiful
+web1.saiful.com
 ```
 
 **`Playbooks and Roles`**\
@@ -119,7 +119,7 @@ web1.saiful
 
 ```sh
 ---
-- hosts: all
+- hosts: prod
   become: yes
   tasks:
     - name: Add the user 'arham' with a bash shell and append to the appropriate group based on OS
@@ -130,11 +130,60 @@ web1.saiful
         append: yes
         password: "$6$b83Y/9DUqDUcOUWa$2/Ck6fbUZzf/IcycdRvR6grGkKTg0Xr9D9RReFWK7kKctK3mva5r6a7CImZ3VMLdaJ2TS7fkBeYnduKge8O55/"   ## mkpasswd --method=SHA-512 | Where password is "nopassword"
 ```
+`ansible-playbook -i hosts adduser.yaml`
 
 
-Step 1: Verify sudo privileges and update system packages.
-Step 2: Add Ansible PPA (Personal Package Archive)
-Step 3: Install Ansible and verify the installation.
-Step 4: Host machine setup.
-Step 5: Set up SSH keys in host machines.
-Step 6: Test the host machine access.
+#### 🟢Custom Configuration | in /home/msi/
+
+You can also configure Ansible to work from a `custom locatio`n, such as within a **user's home** directory. This allows different users to manage their own Ansible setups **without requiring root privileges or modifying the global configuration in** `/etc/ansible`
+
+
+`vim /home/msi/.ansible.cfg`
+
+```sh
+[defaults]
+inventory = /home/msi/hosts
+remote_user = msi
+host_key_checking = False
+private_key_file = /home/msi/.ssh/id_rsa
+
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root
+become_ask_pass=False
+```
+
+**`Inventory File`**\
+`vim /home/msi/hosts`
+```sh
+[dev]
+192.168.3.11
+
+[prod]
+web1.saiful.com
+```
+
+**`Playbooks and Roles`**\
+`vim /home/msi/adduser_keybased.yaml`
+
+```sh
+---
+- name: Add a user to all servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure a new user is present
+      user:
+        name: john
+        state: present
+        groups: sudo
+        shell: /bin/bash
+
+    - name: Copy SSH public key for the new user
+      authorized_key:
+        user: john
+        state: present
+        key: "{{ lookup('file', '/path/to/john.pub') }}"
+```
+ansible-playbook -i hosts adduser_keybased.yaml
