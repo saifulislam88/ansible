@@ -1,3 +1,4 @@
+### Ansible Architecture Overview:
 
 Ansible is a free and open-source automation tool used to configuration management, application deployment and task automation. Ansible has a simple yet powerful architecture primarily consisting of **two types of nodes**:
 
@@ -7,7 +8,15 @@ Ansible is a free and open-source automation tool used to configuration manageme
 Ansible operates in an **agentless fashion**, which means it does not need agents to be running on managed nodes. **It uses SSH for Linux and WinRM for Windows to communicate with managed nodes.**
 
 
-### Pre-requisites | Environment
+### Ansible Core Components:
+- **Inventory:** A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a `custom path with **any name** like `/home/msi/hostdb`.
+- **Modules:** Predefined code to perform tasks (e.g., file management, service restart, package installation).
+- **Playbooks:** YAML files containing a set of tasks to automate processes.
+- **Roles:** A structure for organizing playbooks and other configuration files for reusability.
+- **Plugins:** Extend the core functionality of Ansible (e.g., inventory plugins, connection plugins).
+
+
+### Pre-requisites | Environment | Installation
 
 
 |      Role       |         FQDN                  |       IP       |     OS       |
@@ -56,6 +65,74 @@ ssh-copy-id msi@web2.saiful.com
 `ssh msi@web2.saiful.com `
 
 
+### **Step:3:** To install **Ansible** on your server, run the following command on your **control node**:
+
+- **Ansible Installation**
+```sh
+sudo apt update -y
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y
+```
+```sh
+sudo ansible --version
+```
+
+
+
+After installing Ansible, you can manage remote nodes using the default configuration provided in /etc/ansible, as well as create custom configurations in other locations such as a user's home directory.\
+By default, `Ansible` is configured to use the `/etc/ansible` directory for its configuration, `inventory`, and `playbook files`. When running `Ansible` as the **`root`** user, `Ansible` will look for the following default files:
+
+1. Default Configuration in /etc/ansible
+
+
+- **Ansible Configuration File:** `/etc/ansible/ansible.cfg`
+- **Inventory File:** `/etc/ansible/hosts`
+- **Playbooks and Roles:** Can be created and stored in any directory, but the default inventory and configuration are tied to `/etc/ansible/adduser.yaml`.
+
+This setup allows centralized management of nodes by the root user or Keep as it is after ansible installation\
+
+**`Ansible Default Configuration File`**\
+`vim /etc/ansible/ansible.cfg`
+```sh
+[defaults]
+inventory = /etc/ansible/hosts
+remote_user = root
+host_key_checking = False
+
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root
+become_ask_pass=False
+```
+
+**`Inventory File`**\
+`vim /etc/ansible/hosts`
+```sh
+[dev]
+192.168.3.11
+
+[prod]
+web1.saiful
+```
+
+**`Playbooks and Roles`**\
+`vim /etc/ansible/adduser.yaml`
+
+```sh
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Add the user 'arham' with a bash shell and append to the appropriate group based on OS
+      ansible.builtin.user:
+        name: arham
+        shell: /bin/bash
+        groups: "{{ 'sudo' if ansible_facts['os_family'] == 'Debian' else 'wheel' }}"
+        append: yes
+        password: "$6$b83Y/9DUqDUcOUWa$2/Ck6fbUZzf/IcycdRvR6grGkKTg0Xr9D9RReFWK7kKctK3mva5r6a7CImZ3VMLdaJ2TS7fkBeYnduKge8O55/"   ## mkpasswd --method=SHA-512 | Where password is "nopassword"
+```
 
 
 Step 1: Verify sudo privileges and update system packages.
