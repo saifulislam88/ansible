@@ -10,7 +10,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 
 ### Ansible Core Components:
 - **Inventory:** A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a `custom path with **any name** like `/home/msi/hostdb`.
-- **Modules:** Predefined code to perform tasks (e.g., file management, service restart, package installation).
+- **Modules:** Predefined & pre-built code that performs specific tasks such as file management, service restarts, and package installation and these command user, apt, yum that execute defined tasks on servers.
 - **Playbooks:** YAML files containing a set of tasks to automate processes.
 - **Roles:** A structure for organizing playbooks and other configuration files for reusability.
 - **Plugins:** Extend the core functionality of Ansible (e.g., inventory plugins, connection plugins).
@@ -89,7 +89,7 @@ After installing Ansible, you can manage remote nodes using the default configur
 
 This setup allows centralized management of nodes by the root user or Keep as it is after ansible installation\
 
-**`Ansible Default Configuration File`**\
+- **`Ansible Default Configuration File`**\
 `vim /etc/ansible/ansible.cfg`
 ```sh
 [defaults]
@@ -104,7 +104,7 @@ become_user=root
 become_ask_pass=False
 ```
 
-**`Inventory File`**\
+- **`Inventory File`**\
 `vim /etc/ansible/hosts`
 ```sh
 [dev]
@@ -114,7 +114,7 @@ become_ask_pass=False
 web1.saiful.com
 ```
 
-**`Playbooks and Roles`**\
+- **`Playbooks and Roles`**\
 `vim /etc/ansible/adduser.yaml`
 
 ```sh
@@ -138,6 +138,8 @@ web1.saiful.com
 You can also configure Ansible to work from a `custom locatio`n, such as within a **user's home** directory. This allows different users to manage their own Ansible setups **without requiring root privileges or modifying the global configuration in** `/etc/ansible`
 
 
+- **Default Configuration File**
+
 `vim /home/msi/.ansible.cfg`
 
 ```sh
@@ -154,7 +156,7 @@ become_user=root
 become_ask_pass=False
 ```
 
-**`Inventory File`**\
+- **`Inventory File`**\
 `vim /home/msi/hosts`
 ```sh
 [dev]
@@ -164,7 +166,7 @@ become_ask_pass=False
 web1.saiful.com
 ```
 
-**`Playbooks and Roles`**\
+- **`Playbooks and Roles`**\
 `vim /home/msi/adduser_keybased.yaml`
 
 ```sh
@@ -187,3 +189,58 @@ web1.saiful.com
         key: "{{ lookup('file', '/path/to/john.pub') }}"
 ```
 `ansible-playbook -i hosts adduser_keybased.yaml`
+
+
+
+
+### 🚀Ansible KnowledgeBase | Must Know
+
+#### 🔴Variables
+
+Variables in Ansible allow you to store values that can be reused throughout your playbooks. Variables can store different types of data, such as strings, numbers, lists, or dictionaries. And variables allow dynamic values to be used in playbooks. These can be defined in `playbooks`, `inventory files`, or `host_vars/group_vars directories.`
+
+```sh
+vars:
+  package_name: apache2
+tasks:
+  - name: Install web server
+    ansible.builtin.apt:
+      name: "{{ package_name }}"
+      state: present
+```
+
+#### 🔴Fact variables in Ansible
+Fact variables in Ansible are gathered from remote hosts when the playbook starts. They provide information about the system (OS, IP address, CPU, etc.) and can be used in tasks and templates.
+
+
+#### 🔴Inventory
+A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a `custom path with **any name** like `/home/msi/hostdb`
+
+- **Static Inventory:** Lists servers (hosts) in a file (like hosts), typically with their IP addresses or hostnames.
+- **Dynamic Inventory:** Fetches the list of servers dynamically from a source like a cloud provider, using a script or API call.
+
+
+#### 🔴Idempotency in Ansible
+Idempotency in Ansible means that running the same playbook multiple times will have the same result. Ansible will only make changes if the system state differs from the desired state, ensuring that tasks are applied only when needed.
+
+
+#### 🔴Ansible handle errors and retries
+Ansible will stop executing tasks on a host if a task fails unless you specify the ignore_errors: yes directive. You can also use retry_files_enabled to configure automatic retries.
+
+#### 🔴Handlers in Ansible
+Handlers are tasks that are triggered by a notification from another task. They are used to execute tasks like restarting a service only when changes are made (e.g., only restart Apache if a config file is changed).
+
+```sh
+- name: Restart Apache
+  ansible.builtin.service:
+    name: "{{ apache_service }}"
+    state: restarted
+```
+
+#### 🔴Ansible Vault
+You can secure sensitive data like passwords or API keys in Ansible using Ansible Vault, which allows you to encrypt files or variables in your playbooks.
+
+#### 🔴What is the difference between shell and command modules in Ansible
+
+- **Command Module:** Runs commands on the remote host but does not support shell-specific features like pipes, redirection, or environment variables.
+- **Shell Module:** Allows shell-specific features and provides more flexibility for complex command execution.
