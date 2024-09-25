@@ -247,3 +247,6 @@ You can secure sensitive data like passwords or API keys in Ansible using Ansibl
 
 - **Command Module:** Runs commands on the remote host but does not support shell-specific features like pipes, redirection, or environment variables.
 - **Shell Module:** Allows shell-specific features and provides more flexibility for complex command execution.
+
+#### 🔴CMDB
+Ansible-cmdb takes the output of Ansible's fact gathering and converts it into a static HTML overview page (and other things) containing system configuration information.
