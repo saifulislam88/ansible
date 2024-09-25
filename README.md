@@ -1,6 +1,7 @@
 ### 🚀Ansible Architecture Overview:
 
 Ansible is a free and open-source automation tool used to configuration management, application deployment and task automation. Ansible has a simple yet powerful architecture primarily consisting of **two types of nodes**:
+![image](https://github.com/user-attachments/assets/12fcbe0e-4ec4-41f3-a102-8a888bba3c3f)
 
 - **Control Node:** This is the machine where Ansible is installed, and from which commands, modules, and playbooks are executed. 
 - **Managed Nodes:** These are the target systems (servers, VMs, etc.) on which Ansible performs tasks. They do not require Ansible to be installed; they are managed through SSH (Linux) or WinRM (Windows).
