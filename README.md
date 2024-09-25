@@ -1,4 +1,4 @@
-### Ansible Architecture Overview:
+### 🚀Ansible Architecture Overview:
 
 Ansible is a free and open-source automation tool used to configuration management, application deployment and task automation. Ansible has a simple yet powerful architecture primarily consisting of **two types of nodes**:
 
@@ -8,7 +8,7 @@ Ansible is a free and open-source automation tool used to configuration manageme
 Ansible operates in an **agentless fashion**, which means it does not need agents to be running on managed nodes. **It uses SSH for Linux and WinRM for Windows to communicate with managed nodes.**
 
 
-### Ansible Core Components:
+### 🚀Ansible Core Components:
 - **Inventory:** A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a `custom path with **any name** like `/home/msi/hostdb`.
 - **Modules:** Predefined & pre-built code that performs specific tasks such as file management, service restarts, and package installation and these command user, apt, yum that execute defined tasks on servers.
 - **Playbooks:** YAML files containing a set of tasks to automate processes.
@@ -16,7 +16,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 - **Plugins:** Extend the core functionality of Ansible (e.g., inventory plugins, connection plugins).
 
 
-### Pre-requisites | Environment | Installation
+### 🚀Pre-requisites | Environment | Installation
 
 
 |      Role       |         FQDN                  |       IP       |     OS       |
@@ -27,7 +27,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 | Managed Node+n  | xyz                           | xyz            | xyz          |
 
 
-### Step:1: Update hostfile `/etc/hosts`(Only control node)
+### 🚀Step:1: Update hostfile `/etc/hosts`(Only control node)
 
 🔴 Downlaod the hostfile and hostname updating script 
 ```sh
@@ -42,7 +42,7 @@ chmod +x hostconfig.sh
 192.168.3.12   web1.saiful.com                     web1
 ```
 
-### **Step:2:** **Ansible Tasks Operation User**
+### 🚀Step:2: Ansible Tasks Operation User
 🟡 Create a user **'msi'** or who will execute to **perform Ansible tasks** on **both** the `control` and `managed` node and give the **`sudo permissions`**.
 ```sh
 adduser --disabled-password --gecos "" msi && echo "msi:nopassword" | chpasswd && usermod -aG sudo msi
@@ -63,7 +63,7 @@ ssh-copy-id msi@web2.saiful.com
 `ssh msi@web2.saiful.com `
 
 
-### **Step:3:** To install **Ansible** on your server, run the following command on your **control node**:
+### 🚀Step:3: To install Ansible on your server, run the following command on your **control node
 
 #### 🟢**Ansible Installation**
 ```sh
