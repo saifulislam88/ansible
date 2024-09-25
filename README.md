@@ -196,9 +196,9 @@ web1.saiful.com
 <br>
 <br>
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### 🚀Ansible KnowledgeBase | Must Know
 
+### 🚀Ansible KnowledgeBase | Must Know
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #### 🔴Variables
 
 Variables in Ansible allow you to store values that can be reused throughout your playbooks. Variables can store different types of data, such as strings, numbers, lists, or dictionaries. And variables allow dynamic values to be used in playbooks. These can be defined in `playbooks`, `inventory files`, or `host_vars/group_vars directories.`
