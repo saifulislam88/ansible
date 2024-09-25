@@ -201,7 +201,7 @@ web1.saiful.com
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #### 🔴Variables
 
-Variables in Ansible allow you to store values that can be reused throughout your playbooks. Variables can store different types of data, such as strings, numbers, lists, or dictionaries. And variables allow dynamic values to be used in playbooks. These can be defined in `playbooks`, `inventory files`, or `host_vars/group_vars directories.`
+Variables in Ansible allow you to store values that can be reused throughout your playbooks. Variables can store different types of data, such as strings, numbers, lists, or dictionaries. And variables allow dynamic values to be used in playbooks. These can be defined in `playbooks`, `inventory files`, or `host_vars/` `/group_vars` directories.
 
 ```sh
 vars:
@@ -213,9 +213,8 @@ tasks:
       state: present
 ```
 
-#### 🔴Fact variables in Ansible
+#### 🔴Fact variables
 Fact variables in Ansible are gathered from remote hosts when the playbook starts. They provide information about the system (OS, IP address, CPU, etc.) and can be used in tasks and templates.
-
 
 #### 🔴Inventory
 A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a `custom path with **any name** like `/home/msi/hostdb`
@@ -224,14 +223,14 @@ A file listing the hosts or nodes to manage, typically `/etc/ansible/hosts` or a
 - **Dynamic Inventory:** Fetches the list of servers dynamically from a source like a cloud provider, using a script or API call.
 
 
-#### 🔴Idempotency in Ansible
+#### 🔴Idempotency 
 Idempotency in Ansible means that running the same playbook multiple times will have the same result. Ansible will only make changes if the system state differs from the desired state, ensuring that tasks are applied only when needed.
 
 
-#### 🔴Ansible handle errors and retries
+#### 🔴Handle errors and retries
 Ansible will stop executing tasks on a host if a task fails unless you specify the ignore_errors: yes directive. You can also use retry_files_enabled to configure automatic retries.
 
-#### 🔴Handlers in Ansible
+#### 🔴Handlers
 Handlers are tasks that are triggered by a notification from another task. They are used to execute tasks like restarting a service only when changes are made (e.g., only restart Apache if a config file is changed).
 
 ```sh
@@ -241,7 +240,7 @@ Handlers are tasks that are triggered by a notification from another task. They 
     state: restarted
 ```
 
-#### 🔴Ansible Vault
+#### 🔴Vault
 You can secure sensitive data like passwords or API keys in Ansible using Ansible Vault, which allows you to encrypt files or variables in your playbooks.
 
 #### 🔴What is the difference between shell and command modules in Ansible
