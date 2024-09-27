@@ -1,0 +1,17 @@
+---
+- name: Add a user to all servers
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure a new user is present
+      user:
+        name: john
+        state: present
+        groups: sudo
+        shell: /bin/bash
+
+    - name: Copy SSH public key for the new user
+      authorized_key:
+        user: john
+        state: present
+        key: "{{ lookup('file', '/path/to/john.pub') }}"
