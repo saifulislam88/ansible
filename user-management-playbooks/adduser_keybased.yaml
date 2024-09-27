@@ -3,11 +3,23 @@
   hosts: all
   become: yes
   tasks:
+
+    - name: Determine the correct admin group
+      set_fact:
+        admin_group: |
+          {% if 'debian' in ansible_distribution | lower or 'ubuntu' in ansible_distribution | lower %}
+          sudo
+          {% elif 'centos' in ansible_distribution | lower or 'rhel' in ansible_distribution | lower or 'fedora' in ansible_distribution | lower %}
+          wheel
+          {% else %}
+          thaer
+          {% endif %}
+
     - name: Ensure a new user is present
       user:
         name: john
         state: present
-        groups: sudo
+        groups: "{{ admin_group }}"
         shell: /bin/bash
 
     - name: Copy SSH public key for the new user
@@ -15,3 +27,4 @@
         user: john
         state: present
         key: "{{ lookup('file', '/path/to/john.pub') }}"
+
