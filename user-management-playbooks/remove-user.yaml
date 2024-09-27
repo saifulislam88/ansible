@@ -1,0 +1,26 @@
+---
+- name: Remove multiple users from all servers
+  hosts: all
+  become: yes
+  vars:
+    users_to_remove:
+      - sami
+      - john
+      - alice
+
+  tasks:
+    - name: Kill all processes for each user
+      shell: "pkill -u {{ item }} || true"
+      ignore_errors: true
+      loop: "{{ users_to_remove }}"
+      register: pkill_result
+
+    - name: Forcefully terminate any remaining processes for each user using killall
+      shell: "killall -u {{ item }} || true"
+      ignore_errors: true
+      loop: "{{ users_to_remove }}"
+
+    - name: Forcefully remove the user and their home directory using userdel
+      shell: "userdel -r -f {{ item }}"
+      loop: "{{ users_to_remove }}"
+      ignore_errors: true
