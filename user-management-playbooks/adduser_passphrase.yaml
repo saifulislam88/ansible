@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Add the user 'arham' with a bash shell and append to the appropriate group based on OS
+      ansible.builtin.user:
+        name: arham
+        shell: /bin/bash
+        groups: "{{ 'sudo' if ansible_facts['os_family'] == 'Debian' else 'wheel' }}"
+        append: yes
+        password: "$6$b83Y/9DUqDUcOUWa$2/Ck6fbUZzf/IcycdRvR6grGkKTg0Xr9D9RReFWK7kKctK3mva5r6a7CImZ3VMLdaJ2TS7fkBeYnduKge8O55/"
