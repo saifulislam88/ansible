@@ -16,7 +16,7 @@ Ansible operates in an **agentless fashion**, which means it does not need agent
 - **Roles:** A structure for organizing playbooks and other configuration files for reusability.
 - **Plugins:** Extend the core functionality of Ansible (e.g., inventory plugins, connection plugins).
 
-<img src="https://github.com/user-attachments/assets/64a82024-4d5b-42d2-a27f-6ee66ebe69f0" alt="Proxmox" width="800" height="700"/>
+<img src="https://github.com/user-attachments/assets/64a82024-4d5b-42d2-a27f-6ee66ebe69f0" alt="Proxmox" width="1000" height="500"/>
 
 alt="Proxmox" width="60" height="35"/>
 
